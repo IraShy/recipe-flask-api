@@ -1,19 +1,17 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from init import db, ma
 import os
-
-db = SQLAlchemy()
 
 
 def create_app():
     app = Flask(__name__)
-
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-
-    db = SQLAlchemy(app)
 
     @app.route("/")
     def index():
         return "Recipes"
+
+    db.init_app(app)
+    ma.init_app(app)
 
     return app
