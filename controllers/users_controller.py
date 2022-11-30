@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from sqlalchemy.exc import IntegrityError
 from init import db, bcrypt
 from models.user import User, UserSchema
+from marshmallow import ValidationError
 
 user_bp = Blueprint("users", __name__, url_prefix="/users")
 
@@ -20,9 +20,6 @@ def register():
         db.session.add(user)
         db.session.commit()
         return UserSchema(exclude=["password"]).dump(user), 201
-    except IntegrityError as err:
-        print(f"ERROR:\n{err}")
-        return {"error": f"{err.orig}"}, 409
-    except KeyError as err:
-        print(f"ERROR:\n{err}")
-        return {"error": f"KeyError: missing {err}"}, 400
+
+    except Exception as err:
+        return {"error": f"Validation Error: {err}"}, 400
