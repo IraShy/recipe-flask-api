@@ -27,6 +27,21 @@
 - moderate
 - pro
 
+## Ingredient types
+
+- vegetables
+- fruits
+- berries
+- green leaves
+- dairy
+- meat
+- poultry
+- pasta
+- grains
+- flour
+
+## Ingredients
+
 ### User ability
 
 - All users are able to see public recipes
